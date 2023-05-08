@@ -32,8 +32,8 @@ Note that T can be replaced by any type.
 
 * You can then add objects to the collection using the push method:
 ``` 
-dataStructure.push(7);
 dataStructure.push(5);
+dataStructure.push(7);
 
 ```
 * To retrieve the maximum value from the collection, use the pop method:
