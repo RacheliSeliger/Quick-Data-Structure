@@ -110,14 +110,12 @@ public class QuickPushDataStructure <T> implements IQuickDataStructure<T>, Itera
 
         if (maxNode == head) {
             head = head.next;
-            if (head != null) {
-                head.prev = null;
-            }
+
         } else {
-            Node<T> prev = maxNode.prev;
-            prev.next = maxNode.next;
+
+            maxNode.prev.next = maxNode.next;
             if (maxNode.next != null) {
-                maxNode.next.prev = prev;
+                maxNode.next.prev = maxNode.prev;
             }
         }
         return maxNode.data;
