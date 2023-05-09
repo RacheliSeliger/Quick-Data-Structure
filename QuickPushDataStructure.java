@@ -3,7 +3,7 @@ package il.co.lird.FS133.Projects.QuickDataStructure;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class QuickPushDataStructure <T> implements Iterable<T> {
+public class QuickPushDataStructure <T> implements IQuickDataStructure<T>, Iterable<T>{
     private Node<T> maxNode = null;
     private Node<T> head = null;
     private final Object lock = new Object();
@@ -23,12 +23,21 @@ public class QuickPushDataStructure <T> implements Iterable<T> {
     }
 
     //Push element in time complexity :  O(1)
+    @Override
+
     public void push(T item) {
 
         Node<T> newNode = new Node<>(item);
         synchronized (lock) {
-            newNode.next = head;
-            head = newNode;
+            if (head == null) {
+                head = newNode;
+            }
+            else
+            {
+                newNode.next = head;
+                head.prev = newNode;
+                head = newNode;
+            }
             if (maxNode == null || ((Comparable <T>)item).compareTo(maxNode.data) > 0) {
                 maxNode = newNode;
             }
@@ -36,6 +45,8 @@ public class QuickPushDataStructure <T> implements Iterable<T> {
     }
 
     //Pop element in time complexity :  O(n)
+    @Override
+
     public T pop() {
 
         synchronized (lock) {
@@ -99,14 +110,16 @@ public class QuickPushDataStructure <T> implements Iterable<T> {
 
         if (maxNode == head) {
             head = head.next;
-        } else {
-            Node<T> prev = head;
-            while (prev.next != maxNode) {
-                prev = prev.next;
+            if (head != null) {
+                head.prev = null;
             }
+        } else {
+            Node<T> prev = maxNode.prev;
             prev.next = maxNode.next;
+            if (maxNode.next != null) {
+                maxNode.next.prev = prev;
+            }
         }
-
         return maxNode.data;
     }
 
@@ -142,10 +155,12 @@ public class QuickPushDataStructure <T> implements Iterable<T> {
     private static class Node<T> {
         private T data ;
         private Node<T> next;
+        private Node<T> prev;
 
         public Node(T data) {
             this.data = data;
             this.next = null;
+            this.prev = null;
         }
     }
 

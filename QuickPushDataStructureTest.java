@@ -97,14 +97,14 @@ class QuickDataStructureTest {
             pushThread.add(thread);
         }
 
-        for (Thread thread : pushThread) {
-            thread.start();
-        }
-
 
         for (int i = 0; i < 10; ++i) {
             Thread thread = new Thread(new PopThreadSafeRandom());
             popThread.add(thread);
+        }
+
+        for (Thread thread : pushThread) {
+            thread.start();
         }
 
         for (Thread thread : popThread) {
@@ -153,13 +153,6 @@ class QuickDataStructureTest {
         assertEquals(StudentQuickList.pop(),student2 );
         assertEquals(StudentQuickList.pop(),student3 );
         assertEquals(StudentQuickList.pop(),student1 );
-
-    }
-
-    @Test
-    void getMax() {
-
-        assertEquals(QuickListStudent.getMax(), student2);
 
     }
 
