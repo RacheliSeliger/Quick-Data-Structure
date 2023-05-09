@@ -70,6 +70,21 @@ public class QuickPushDataStructure <T> implements IQuickDataStructure<T>, Itera
         }
     }
 
+    public int count() {
+
+        int count = 0;
+        Node<T> curr = head;
+        while (curr != null) {
+            count++;
+            curr = curr.next;
+        }
+        return count;
+    }
+
+    public boolean isEmpty() {
+        return (this.head == null);
+    }
+
     private void updateMaxNode() {
 
         if (head == null) {
@@ -89,21 +104,6 @@ public class QuickPushDataStructure <T> implements IQuickDataStructure<T>, Itera
         }
 
         maxNode = newMaxNode;
-    }
-
-    public int count() {
-
-        int count = 0;
-        Node<T> curr = head;
-        while (curr != null) {
-            count++;
-            curr = curr.next;
-        }
-        return count;
-    }
-
-    public boolean isEmpty() {
-        return (this.head == null);
     }
 
     private T removeMaxNode(){
